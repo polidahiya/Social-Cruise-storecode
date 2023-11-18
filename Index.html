@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Storecode</title>
+    <style>
+      body {
+        --red: #fb4399;
+        margin: 0;
+        overflow-x: hidden;
+        font-family: "Roboto", sans-serif;
+        box-sizing: border-box;
+      }
+      nav {
+        height: 60px;
+        width: 100%;
+        background-color: var(--red);
+        display: flex;
+        align-items: center;
+        padding: 0 30px 0 50px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        box-sizing: border-box;
+        z-index: 100;
+      }
+      nav a {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none;
+        color: white;
+        font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+          "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+        letter-spacing: 1px;
+      }
+      nav a img {
+        height: 70%;
+        border-radius: 4px;
+      }
+      .navbuttonscontainer {
+        height: 100%;
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .navbuttons {
+        height: 50%;
+        color: white;
+        cursor: pointer;
+        text-transform: uppercase;
+        padding: 0 20px;
+        border-radius: 50px;
+        transition: 0.5s;
+        font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+          sans-serif;
+        font-size: 17px;
+      }
+      .navbuttons:hover {
+        background-color: white;
+        color: black;
+        transition: 0s;
+      }
+      .navbuttonscontainer a img {
+        height: 60%;
+      }
+      /*  */
+      .section {
+        width: 100%;
+      }
+      .section1 {
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: url(images/bg-01.jpg);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+      }
+      .searchcontainer {
+        height: 300px;
+        width: 380px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: white;
+        border-radius: 10px;
+        box-sizing: border-box;
+        padding: 0px;
+        transition: 0.3s;
+      }
+      .searchcontainer h1 {
+        font-size: 40px;
+        text-align: center;
+        color: rgb(46, 46, 46);
+      }
+      .searchcontainer input {
+        background-color: transparent;
+        border: none;
+        margin-top: 30px;
+        outline: none;
+        height: 20px;
+        font-size: 15px;
+      }
+      .line {
+        width: 70%;
+        height: 2px;
+        background-color: rgba(128, 128, 128, 0.564);
+        margin-top: 10px;
+        border-radius: 5px;
+        overflow: hidden;
+      }
+      .innerline {
+        height: 100%;
+        width: 0%;
+        background-color: rgb(0, 0, 0);
+        transition: 0.3s linear;
+      }
+      .searchcontainer button {
+        height: 35px;
+        width: 70%;
+        margin-top: 10px;
+        border-radius: 50px;
+        border: none;
+        cursor: pointer;
+        color: white;
+        font-size: 18px;
+        overflow: hidden;
+        position: relative;
+        z-index: 1;
+      }
+      .searchcontainer button div {
+        height: 100%;
+        width: 200%;
+        position: absolute;
+        top: 0;
+        left: -100%;
+        background: linear-gradient(
+          90deg,
+          rgb(255, 0, 247),
+          rgb(0, 200, 255),
+          rgb(255, 0, 247)
+        );
+        z-index: -1;
+        pointer-events: none;
+        transition: 0.3s;
+      }
+      .searchcontainer button:hover div {
+        left: 0%;
+      }
+      /*  */
+      .stickysearchcontainer {
+        position: fixed;
+        top: 60px;
+        width: 100%;
+        height: 50px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0;
+        border-bottom: 1px solid;
+      }
+      .stickysearchcontainer input {
+        margin-top: 0;
+      }
+      .stickysearchcontainer h1 {
+        display: none;
+      }
+      .stickysearchcontainer .line {
+        display: none;
+      }
+      .stickysearchcontainer button {
+        width: 100px;
+        margin-top: 0;
+      }
+      /*  */
+      .section2 {
+        width: 100%;
+        background-color: rgb(186, 160, 205);
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        box-sizing: border-box;
+        padding: 50px;
+      }
+      .imgrow{
+        display: flex;
+        gap: 4px;
+        justify-content: center;
+      }
+      .imgrow img{
+        max-height: 300px;
+      }
+      .section3 {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: rgb(243, 243, 243);
+        padding: 0px 0px 50px 0px;
+      }
+      .mainheading {
+        margin: 70px 0 30px 0px;
+        font-size: 30px;
+      }
+      .featurecontainer {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        grid-auto-rows: minmax(100px, auto);
+      }
+      .feature {
+        height: 200px;
+        min-width: 400px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        text-align: center;
+        padding: 20px 30px;
+        box-sizing: border-box;
+        border-radius: 10px;
+        background-color: white;
+        box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.457);
+      }
+      .f2c {
+        grid-column: span 2;
+      }
+      .feature img {
+        height: 50px;
+      }
+      .feature p {
+        color: rgb(75, 75, 75);
+      }
+      /*  */
+      .partnershipprogram {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 50px 0px;
+      }
+      .partnershipprogram h1 {
+        font-size: 30px;
+        letter-spacing: -1px;
+      }
+      .partnershipprogram button {
+        background-color: var(--red);
+        border: none;
+        padding: 10px 30px;
+        color: white;
+        font-size: 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        text-transform: capitalize;
+      }
+      .partnershipprogram button:hover {
+        transform: scale(1.05);
+      }
+      .partnershipprogram h3 {
+        color: rgb(104, 104, 104);
+        text-align: center;
+        max-width: 700px;
+        display: none;
+      }
+      .showhide {
+        display: block !important;
+      }
+      /*  */
+      .registration {
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #fb4399;
+      }
+      .registration h1 {
+        color: white;
+        font-size: 33px;
+      }
+      .registration button {
+        background-color: rgb(15, 191, 15);
+        border: none;
+        padding: 10px 30px;
+        color: white;
+        font-size: 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        text-transform: capitalize;
+      }
+      .registration button:hover {
+        outline: 2px solid white;
+      }
+      /*  */
+      footer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 70px 0px;
+        width: 100%;
+      }
+      .socialmedia {
+        display: flex;
+        align-items: center;
+        height: 40px;
+        margin-top: 30px;
+        transform: translateX(-10px);
+      }
+      .mediabuttons {
+        height: 100%;
+        border-radius: 40px;
+        display: grid;
+        place-content: center;
+        padding: 5px;
+        box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.457);
+        box-sizing: border-box;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .mediabuttons {
+        background-color: rgb(255, 255, 255);
+        margin-left: 20px;
+      }
+      .mediabuttons:hover {
+        transform: scale(1.1);
+        background-color: var(--red);
+      }
+      .mediabuttons img {
+        height: 30px;
+        aspect-ratio: 1;
+      }
+      .mediabuttons:hover img {
+        filter: brightness(100);
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="Storecode.in">
+        <img src="images/logo-nav.png" alt="" />
+        <h2>STORECODE</h2>
+      </a>
+      <div class="navbuttonscontainer">
+        <a href="#" class="navbuttons">home</a>
+        <a href="#" class="navbuttons">login</a>
+        <a href="#" class="navbuttons">register</a>
+        <a href="#" class="navbuttons">contact</a>
+        <a href="#" class="navbuttons">about</a>
+        <a href="#">
+          <img src="images/cart.svg" alt="" />
+        </a>
+      </div>
+    </nav>
+    <section class="section section1">
+      <div class="searchcontainer">
+        <h1>Shop with Storecode</h1>
+        <input type="text" placeholder="Enter Product Code" />
+        <div class="line">
+          <div class="innerline"></div>
+        </div>
+        <button>
+          Search
+          <div></div>
+        </button>
+      </div>
+    </section>
+    <section class="section section2">
+      <div class="imgrow">
+        <img src="images/collage1.jpeg" alt="" />
+        <img src="images/collage2.avif" alt="" />
+      </div>
+      <div class="imgrow">
+        <img src="images/collage3.avif" alt="" />
+        <img src="images/collage5.jpg" alt="" />
+      </div>
+    </section>
+    <section class="section section3">
+      <h2 class="mainheading">Guide your Followers</h2>
+      <div class="featurecontainer">
+        <div class="feature">
+          <img src="images/money.svg" alt="" />
+          <h3>Earn Rewards</h3>
+          <p>Earn from every purchase made through your unique codes.</p>
+        </div>
+        <div class="feature">
+          <img src="images/cart2.svg" alt="" />
+          <h3>Your Personal Store</h3>
+          <p>Have a personal store powered by your influence.</p>
+        </div>
+        <div class="feature f2c">
+          <img src="images/lock.svg" alt="" />
+          <h3>Exclusive Codes</h3>
+          <p>Keep your recommended sites a secret under your unique code.</p>
+        </div>
+      </div>
+    </section>
+    <section class="section section4">
+      <div class="partnershipprogram">
+        <h1>The Exclusive Partnership Program</h1>
+        <button onclick="showhidepartnershipprog(this)">View More</button>
+        <h3>
+          Storecode is gearing up to collaborate with major shopping brands. As
+          an Influencer on our platform, you gain a fantastic advantage – your
+          very own personal store on our website. This store is powered by your
+          influence and recommendations. Here's the twist: We encourage you not
+          to reveal the exact websites from which you purchase the products you
+          promote in your new videos henceforth. Instead, keep it a secret under
+          the code you share. Why? Because disclosing sites directly can create
+          unnecessary competition and, in many cases, lead to users buying
+          directly from those mentioned sites, bypassing all your hard work. By
+          sharing your unique code, your followers are directed to the product
+          on your recommended site. As we embark on our collaboration with major
+          brands, your influencer status will transform into a powerful
+          partnership program, offering you the opportunity to earn from every
+          purchase made through your unique codes. Your influence becomes your
+          earning potential. This approach ensures that your hard work as an
+          influencer is rewarded, and it aligns perfectly with our mission to
+          create a win-win ecosystem for influencers and their followers. Get
+          ready to make the most of this exclusive partnership program with
+          Storecode!
+        </h3>
+      </div>
+      <div class="registration">
+        <h1>Become a Guide at StoreCode</h1>
+        <button>register</button>
+      </div>
+    </section>
+    <footer>
+      <p>© 2023 All Rights Reserved By StoreCode</p>
+      <p>Privacy Policy</p>
+      <div class="socialmedia">
+        <div class="mediabuttons">
+          <img src="images/facebook.svg" alt="" />
+        </div>
+        <div class="mediabuttons">
+          <img src="images/insta.svg" alt="" />
+        </div>
+        <div class="mediabuttons">
+          <img src="images/twitter.svg" alt="" />
+        </div>
+      </div>
+    </footer>
+    <script>
+      let searchinput = document.querySelector(".searchcontainer input");
+      let innerline = document.querySelector(".innerline");
+      searchinput.onfocus = () => {
+        innerline.style.width = "100%";
+      };
+      searchinput.onblur = () => {
+        innerline.style.width = "0%";
+      };
+
+      //
+      let showhideflag = true;
+      function showhidepartnershipprog(value) {
+        document
+          .querySelector(".partnershipprogram h3")
+          .classList.toggle("showhide");
+        if (showhideflag) {
+          value.innerHTML = "Close";
+          showhideflag = false;
+        } else {
+          value.innerHTML = "View More";
+          showhideflag = true;
+        }
+      }
+      //
+      let searchcontainer = document.querySelector(".searchcontainer");
+      let searchcontainertop;
+      window.onscroll = (e) => {
+        searchcontainertop = searchcontainer.getBoundingClientRect().top;
+        if (window.scrollY >= 70) {
+          searchcontainer.classList.add("stickysearchcontainer");
+        } else {
+          searchcontainer.classList.remove("stickysearchcontainer");
+        }
+      };
+    </script>
+  </body>
+</html>
